@@ -1,28 +1,31 @@
-# ecs-service-tf
+# terraform-fargate-service
 
-A Terraform module to create an Amazon Web Services (AWS) ECS Service on top of an ECS cluster.
+A Terraform module to create an Amazon Web Services (AWS) ECS Service for use with AWS Fargate.
 
 ## Usage
 
 ```hcl
 module "container_service" {
-  source = "git::ssh://git@github.com/guruhq/ecs-service-terraform?ref=2.0.0"
+  source = "git::ssh://git@github.com/guruhq/terraform-fargate-service?ref=1.0.0"
 
   cluster_name = "test-cluster"
   vpc_id       = "vpc-12345678"
 
-  lb_container_name = "nginx-frontend"
-  lb_container_port = 80
-  public_subnet_ids = [...]
-  target_group_arn  = "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+  lb_container_name         = "nginx-frontend"
+  lb_container_port         = 80
+  public_subnet_ids         = [...]
+  private_subnet_ids        = [...]
+  container_security_groups = "sg-12345678"
+  assign_public_ip          = "false"
+  target_group_arn          = "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
   
   service_desired_count = 3
-  service_asg_min_cap = 3
-  service_asg_max_cap = 12  
+  service_asg_min_cap   = 3
+  service_asg_max_cap   = 12  
 
-  project     = "docker-test-app"
+  project         = "docker-test-app"
   task_definition = "docker-test-app:1"
-  environment = "dev"
+  environment     = "dev"
 }
 ```
 
@@ -57,6 +60,9 @@ module "container_service" {
 - `public_subnet_ids` - List of subnet ID's to launch ALB into - format ["subnet-xxxxxxxx", "subnet-xxxxxxxx"] (Default: `unknown`)
 - `environment` - Service environment (Default: `unknown`)
 - `vpc_id` - VPC to launch into (Default: `unknown`)
+- `container_security_groups` - List of SG's needed for the containers (Default: `unknown`)
+- `private_subnet_ids` - private subnets to launch the containers into (Default: `unknown`)
+- `assign_public_ip` - if you want to assign a public IP to the containers (Default: `false`)
 
 ## Outputs
 

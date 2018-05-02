@@ -3,7 +3,6 @@ resource "aws_ecs_service" "main" {
   cluster         = "${var.cluster_name}"
   task_definition = "${var.task_definition}"
   desired_count   = "${var.service_desired_count}"
-#  iam_role        = "arn:aws:iam::495243515911:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
   launch_type     = "FARGATE"
   network_configuration {
     subnets          = "${var.private_subnet_ids}"
