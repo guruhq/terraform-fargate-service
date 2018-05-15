@@ -16,7 +16,7 @@ resource "aws_ecs_service" "main" {
     container_port   = "${var.lb_container_port}"
   }
 
- health_check_grace_period_seconds = "${var.health_check_grace_perio_seconds}"
+ health_check_grace_period_seconds = "${var.health_check_grace_period_seconds}"
 
   lifecycle {
     ignore_changes = ["desired_count"]
