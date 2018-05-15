@@ -83,5 +83,5 @@ variable "service_asg_max_cap" {
   default = 12
 }
 variable "health_check_grace_period_seconds" {
-  default = 60
+  default = 300
 }
