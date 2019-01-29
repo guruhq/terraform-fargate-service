@@ -85,3 +85,6 @@ variable "service_asg_max_cap" {
 variable "health_check_grace_period_seconds" {
   default = 300
 }
+variable "deployment_type" {
+  default = "ECS"
+}
