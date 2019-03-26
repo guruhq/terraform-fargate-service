@@ -1,3 +1,6 @@
+variable "profile" {
+  default = "default"
+}
 variable "vpc_id" {}
 variable "task_definition" {}
 variable "target_group_arn" {}
