@@ -91,3 +91,6 @@ variable "health_check_grace_period_seconds" {
 variable "deployment_type" {
   default = "ECS"
 }
+variable "service_role_arn" {
+  default = "arn:aws:iam::495243515911:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+}
