@@ -8,7 +8,7 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   statistic           = "Average"
   threshold           = "${var.cpu_threshold_up}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${var.cluster_name}"
     ServiceName = "${aws_ecs_service.main.name}"
   }
@@ -28,7 +28,7 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
   statistic           = "Average"
   threshold           = "${var.cpu_threshold_down}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${var.cluster_name}"
     ServiceName = "${aws_ecs_service.main.name}"
   }

@@ -8,7 +8,7 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_high" {
   statistic           = "Average"
   threshold           = "${var.mem_threshold_up}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${var.cluster_name}"
     ServiceName = "${aws_ecs_service.main.name}"
   }
@@ -30,7 +30,7 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_low" {
   statistic           = "Average"
   threshold           = "${var.mem_threshold_down}"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${var.cluster_name}"
     ServiceName = "${aws_ecs_service.main.name}"
   }
