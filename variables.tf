@@ -1,6 +1,3 @@
-variable "profile" {
-  default = "default"
-}
 variable "vpc_id" {}
 variable "task_definition" {}
 variable "target_group_arn" {}
@@ -11,7 +8,7 @@ variable "cluster_name" {
   default = "dev-cluster"
 }
 variable "public_subnet_ids" {
-  type    = "list"
+  type = "list"
 }
 variable "private_subnet_ids" {
   type = "list"
@@ -27,9 +24,6 @@ variable "environment" {
 }
 variable "service_desired_count" {
   default = 3
-}
-variable "region" {
-  default = "us-west-2"
 }
 variable "mem_threshold_up" {
   default = 60

@@ -35,7 +35,6 @@ module "container_service" {
 - `lb_container_port` - Port the ALB will route traffic to on the container (Default: `unknown`)
 - `custom_url` - Prefix for the URL - environment will append. I.e. test will be test-env.whatever.com (Default `unknown`)
 - `service_desired_count` - Number of services desired to run - Ignored after initial run (Default: `1`)
-- `region` - Where it all happens (Default: `us-east-1`)
 - `mem_threshold_up` - Percentage of MEM utilization to trigger scaling up action (Default: `60`)
 - `mem_up_evaluation_periods` - How many periods of alarm until scaling up is triggered (Default: `3`)
 - `mem_up_time_period` - How much time is one period (Default: `60`)
