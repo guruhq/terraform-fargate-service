@@ -8,13 +8,13 @@ variable "cluster_name" {
   default = "dev-cluster"
 }
 variable "public_subnet_ids" {
-  type = "list"
+  type = list(string)
 }
 variable "private_subnet_ids" {
-  type = "list"
+  type = list(string)
 }
 variable "container_security_groups" {
-  type = "list"
+  type = list(string)
 }
 variable "assign_public_ip" {
   default = "false"
