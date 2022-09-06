@@ -14,10 +14,10 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_high" {
   }
 
   alarm_actions = [
-    "${aws_appautoscaling_policy.mem_up.arn}"
+    aws_appautoscaling_policy.mem_up.arn
   ]
 
-  depends_on = ["aws_cloudwatch_metric_alarm.service_cpu_high"]
+  depends_on = [aws_cloudwatch_metric_alarm.service_cpu_high]
 }
 
 resource "aws_cloudwatch_metric_alarm" "service_mem_low" {
@@ -36,10 +36,10 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_low" {
   }
 
   alarm_actions = [
-    "${aws_appautoscaling_policy.mem_down.arn}"
+    aws_appautoscaling_policy.mem_down.arn
   ]
 
-  depends_on = ["aws_cloudwatch_metric_alarm.service_cpu_low"]
+  depends_on = [aws_cloudwatch_metric_alarm.service_cpu_low]
 }
 
 resource "aws_appautoscaling_target" "mem_scale_target" {
@@ -51,8 +51,8 @@ resource "aws_appautoscaling_target" "mem_scale_target" {
   max_capacity       = var.service_asg_max_cap
 
   depends_on = [
-    "aws_ecs_service.main",
-    "aws_appautoscaling_target.scale_target"
+    aws_ecs_service.main,
+    aws_appautoscaling_target.scale_target
   ]
 
 }
@@ -73,8 +73,8 @@ resource "aws_appautoscaling_policy" "mem_up" {
     }
   }
   depends_on = [
-    "aws_appautoscaling_target.mem_scale_target",
-    "aws_appautoscaling_policy.cpu_up"
+    aws_appautoscaling_target.mem_scale_target,
+    aws_appautoscaling_policy.cpu_up
   ]
 }
 
@@ -94,7 +94,7 @@ resource "aws_appautoscaling_policy" "mem_down" {
     }
   }
   depends_on = [
-    "aws_appautoscaling_target.mem_scale_target",
-    "aws_appautoscaling_policy.cpu_down"
+    aws_appautoscaling_target.mem_scale_target,
+    aws_appautoscaling_policy.cpu_down
   ]
 }

@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   }
 
   alarm_actions = [
-    "${aws_appautoscaling_policy.cpu_up.arn}"
+    aws_appautoscaling_policy.cpu_up.arn
   ]
 }
 
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
   }
 
   alarm_actions = [
-    "${aws_appautoscaling_policy.cpu_down.arn}"
+    aws_appautoscaling_policy.cpu_down.arn
   ]
 }
 
@@ -47,7 +47,7 @@ resource "aws_appautoscaling_target" "scale_target" {
   max_capacity       = var.service_asg_max_cap
 
   depends_on = [
-    "aws_ecs_service.main"
+    aws_ecs_service.main
   ]
 
 }
@@ -67,7 +67,7 @@ resource "aws_appautoscaling_policy" "cpu_up" {
     }
   }
   depends_on = [
-    "aws_appautoscaling_target.scale_target"
+    aws_appautoscaling_target.scale_target
   ]
 }
 
@@ -87,6 +87,6 @@ resource "aws_appautoscaling_policy" "cpu_down" {
     }
   }
   depends_on = [
-    "aws_appautoscaling_target.scale_target"
+    aws_appautoscaling_target.scale_target
   ]
 }
