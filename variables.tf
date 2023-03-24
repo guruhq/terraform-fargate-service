@@ -88,3 +88,8 @@ variable "deployment_type" {
 variable "service_role_arn" {
   default = "arn:aws:iam::495243515911:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
 }
+variable "additional_scale_alarm_actions" {
+  type    = list(string)
+  default = []
+}
+

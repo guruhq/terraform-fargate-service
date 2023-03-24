@@ -62,6 +62,7 @@ module "container_service" {
 - `container_security_groups` - List of SG's needed for the containers (Default: `unknown`)
 - `private_subnet_ids` - private subnets to launch the containers into (Default: `unknown`)
 - `assign_public_ip` - if you want to assign a public IP to the containers (Default: `false`)
+- `additional_scale_alarm_actions` - any additional alarm actions to register on scaling alarms
 
 ## Outputs
 

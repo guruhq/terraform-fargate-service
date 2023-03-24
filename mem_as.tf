@@ -13,9 +13,8 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_high" {
     ServiceName = "${aws_ecs_service.main.name}"
   }
 
-  alarm_actions = [
-    aws_appautoscaling_policy.mem_up.arn
-  ]
+  alarm_actions = concat([aws_appautoscaling_policy.mem_up.arn], var.additional_scale_alarm_actions)
+
 
   depends_on = [aws_cloudwatch_metric_alarm.service_cpu_high]
 }
@@ -35,9 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_low" {
     ServiceName = "${aws_ecs_service.main.name}"
   }
 
-  alarm_actions = [
-    aws_appautoscaling_policy.mem_down.arn
-  ]
+  alarm_actions = concat([aws_appautoscaling_policy.mem_down.arn], var.additional_scale_alarm_actions)
 
   depends_on = [aws_cloudwatch_metric_alarm.service_cpu_low]
 }
