@@ -25,4 +25,6 @@ resource "aws_ecs_service" "main" {
   deployment_controller {
     type = var.deployment_type
   }
+
+  propagate_tags = "SERVICE"
 }
