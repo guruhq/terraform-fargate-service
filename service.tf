@@ -1,6 +1,5 @@
-moved {
-  from = aws_ecs_service.main
-  to   = aws_ecs_service.default[0]
+locals {
+  service_resource = var.deployment_type != "CODE_DEPLOY" ? aws_ecs_service.default[0] : aws_ecs_service.code_deploy[0]
 }
 
 # The only difference between aws_ecs_service.default and aws_ecs_service.code_deploy are the lifecycle blocks.
