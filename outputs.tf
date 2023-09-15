@@ -1,3 +1,3 @@
 output "name" {
-  value = aws_ecs_service.main.name
+  value = local.service_resource.name
 }

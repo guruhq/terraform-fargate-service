@@ -10,7 +10,7 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_high" {
 
   dimensions = {
     ClusterName = "${var.cluster_name}"
-    ServiceName = "${aws_ecs_service.main.name}"
+    ServiceName = "${local.service_resource.name}"
   }
 
   alarm_actions = concat([aws_appautoscaling_policy.mem_up.arn], var.additional_scale_alarm_actions)
@@ -31,7 +31,7 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_low" {
 
   dimensions = {
     ClusterName = "${var.cluster_name}"
-    ServiceName = "${aws_ecs_service.main.name}"
+    ServiceName = "${local.service_resource.name}"
   }
 
   alarm_actions = concat([aws_appautoscaling_policy.mem_down.arn], var.additional_scale_alarm_actions)
@@ -41,14 +41,14 @@ resource "aws_cloudwatch_metric_alarm" "service_mem_low" {
 
 resource "aws_appautoscaling_target" "mem_scale_target" {
   service_namespace  = "ecs"
-  resource_id        = "service/${var.cluster_name}/${aws_ecs_service.main.name}"
+  resource_id        = "service/${var.cluster_name}/${local.service_resource.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   role_arn           = var.service_role_arn
   min_capacity       = var.service_asg_min_cap
   max_capacity       = var.service_asg_max_cap
 
   depends_on = [
-    aws_ecs_service.main,
+    local.service_resource,
     aws_appautoscaling_target.scale_target
   ]
 
@@ -57,7 +57,7 @@ resource "aws_appautoscaling_target" "mem_scale_target" {
 resource "aws_appautoscaling_policy" "mem_up" {
   name               = "${var.project}-${var.environment}-mem-scale-up"
   service_namespace  = "ecs"
-  resource_id        = "service/${var.cluster_name}/${aws_ecs_service.main.name}"
+  resource_id        = "service/${var.cluster_name}/${local.service_resource.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
@@ -78,7 +78,7 @@ resource "aws_appautoscaling_policy" "mem_up" {
 resource "aws_appautoscaling_policy" "mem_down" {
   name               = "${var.project}-${var.environment}-mem-scale-down"
   service_namespace  = "ecs"
-  resource_id        = "service/${var.cluster_name}/${aws_ecs_service.main.name}"
+  resource_id        = "service/${var.cluster_name}/${local.service_resource.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
